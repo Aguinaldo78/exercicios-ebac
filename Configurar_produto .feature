@@ -1,50 +1,41 @@
-## language: pt
+            #language: pt
 
-Funcionalidade: Configurar produto
-Como cliente da EBAC-SHOP
-Quero configurar meu produto de acordo com meu tamanho e gosto
-E escolher a quantidade
-Para depois inserir no carrinho
+            Funcionalidade: Configurar produto
 
-Cenário: Selecionar cor, tamanho e quantidade
-Dado que eu estou na página do produto
-Quando eu seleciono uma cor
-E seleciono um tamanho
-E escolho a quantidade
-E clico no botão "Comprar"
-Então devo ser direcionado para a página de checkout
+            Como cliente da EBAC-SHOP
+            Quero configurar meu produto de acordo com meu tamanho e gosto
+            E escolher a quantidade
+            Para depois inserir no carrinho
 
-Cenário: Tentativa de adicionar produto sem selecionar cor, tamanho ou quantidade
-Dado que eu estou na página do produto
-Quando eu não seleciono uma cor
-E não seleciono um tamanho
-E não escolho a quantidade
-E clico no botão "Comprar"
-Então eu devo ver uma mensagem de erro indicando que cor, tamanho e quantidade são obrigatórios
+            Cenário: Quando eu clicar no botão “limpar” deve voltar ao estado original
+            Dado que existam produtos no carrinho de compras
+            Quando o botão "limpar" for acionado
+            Então o sistema deve zerar os produtos adicionados e exibir a mensagem "Você não possui itens no carrinho"
 
-Cenário: Adicionar mais de 10 produtos
-Dado que eu estou na página do produto
-Quando eu seleciono uma cor
-E seleciono um tamanho
-E escolho a quantidade de 11 produtos
-E clico no botão "Comprar"
-Então devo ver uma mensagem de erro indicando que o limite máximo é de 10 produtos por venda
+            Esquema do Cenário: Deve permitir apenas 10 produtos por venda
+            Dado que eu selecione <quantidade> de um item
+            Quando clicar em adicionar o produto ao carrinho
+            Então o sistema deve exibir a crítica <mensagem>
 
-Cenário: Limpar as seleções do produto
-Dado que eu estou na página do produto
-E selecionei uma cor
-E selecionei um tamanho
-E escolhi uma quantidade
-Quando clico no botão "limpar"
-Então as seleções devem voltar ao estado original
+            Exemplos:
 
-Cenário: Adicionar quantidade máxima de produtos
-Dado que eu estou na página do produto
-Quando eu seleciono uma cor
-E seleciono um tamanho
-E escolho a quantidade de 10 produtos
-E clico no botão "Comprar"
-Então devo ser direcionado para a página de checkout
+            | quantidade | mensagem                                 |
+            | "5"        | "Itens adicionados ao carrinho"          |
+            | "6"        | "Itens adicionados ao carrinho"          |
+            | "11"       | "Quantidade de itens acima do permitido" |
 
+            Esquema do Cenário: Seleções de cor, tamanho e quantidade devem ser obrigatórios
+            Dado que eu selecione <cor>, <tamanho> e <quantidade> do item desejado
+            Quando clicar em adicionar o produto ao carrinho
+            Então o sistema deve exibir <mensagem>
+
+            Exemplos:
+
+            | cor   | tamanho | quantidade | mensagem                                         |
+            | preto | G       | 5          | "Itens adicionados ao carrinho"                  |
+            | verde | P       | 11         | "Quantidade de itens acima do permitido"         |
+            | azul  | vazio   | 6          | "Selecione o tamanho desejados"                  |
+            | verde | M       | 0          | "A quantidade de itens deve ser, no mínimo, 1"   |
+            | vazio | vazio   | 0          | "Escolha a cor, tamanho e quantidade do produto" |
 
 

@@ -1,59 +1,32 @@
-            #Language: pt
+            #language: pt
 
-            Funcionalidade: Tela de cadastro - Checkout
+            Funcionalidade: Tela de Cadastrado - Checkout
+
             Como cliente da EBAC-SHOP
             Quero fazer concluir meu cadastro
             Para finalizar minha compra
 
             Contexto:
-            Dado que eu estou na tela de checkout da EBAC-SHOP
+            Dado que eu esteja na tela de cadastro para fazer meu registro
 
-            Esquema do Cenário: Cadastro concluido
-            Quando insiro os dados válidos nos campos que são obrigatórios marcado com asteriscos
-            E clico no botão "Finalizar Compra"
-            Então a compra dever ser concluída com sucesso
-            E devo ver um mensagem de confirmação de pedido
+            Esquema do Cenário: Deve ser cadastrado com todos os dados obrigatórios, marcado com asteriscos
+            Quando preencho todos os campos obrigatórios como <nome> <sobrenome> <email> <país> <cidade> <endereco> <telefone> e <cep>
+            Então Devo ser direcionado para a página de checkout
 
-            | campo                 | valor                    |
-            | Nome (*)              | José                     |
-            | Sobrenome (*)         | Santos                   |
-            | Nome da Empresa       |                          |
-            | País (*)              | Brasil                   |
-            | Endereço (*)          | Rua das Oliveiras Nr 399 |
-            | Cidade (*)            | Curitiba                 |
-            | CEP (*)               | 81260-240                |
-            | Telefone (*)          | 41 99823 1010            |
-            | Endereço de Email (*) | jose@exemplo.com         |
+            Exemplos:
 
+            | nome   | sobrenome | email                  | país     | cidade     | endereco              | telefone        | cep         |
+            | "João" | "Santos"  | "joaosantos@gmail.com" | "Brasil" | "Curitiba" | "Rua das Flores, 011" | "41 99800 0000" | "52051-035" |
 
-            Esquema do Cenário: Inserir um Email com formato inválido
-            Quando Tento inserir um email com um formato inválido
-            Então devo receber uma mensagem "formato inválido"
+            Cenário: Ao tentar cadastrar com campos vazios, deve exibir mensagem de alerta.
+            Quando eu tentar concluir o cadastro sem preencher qualquer um dos campos obrigatórios
+            Então o sistema deve exibir a mensagem "Preencha todos os campos marcados com asterisco"
 
-            | campo                 | valor                    |
-            | Nome (*)              | José                     |
-            | Sobrenome (*)         | Santos                   |
-            | Nome da Empresa       |                          |
-            | País (*)              | Brasil                   |
-            | Endereço (*)          | Rua das Oliveiras Nr 399 |
-            | Cidade (*)            | Curitiba                 |
-            | CEP (*)               | 81260-240                |
-            | Telefone (*)          | 41 99823 1010            |
-            | Endereço de Email (*) | joseexemplo.com          |
+            Esquema do Cenário: Não deve permitir campo e-mail com formato inválido. Sistema deve inserir uma mensagem de erro
+            Quando eu inserir <email>
+            Então o sistema deve exibir uma <mensagem>
 
-            Esquema do Cenário: Campos Vazios
-            Quando Tento cadastrar com compos Vazios
-            E cliclo em "Finalizar a Compra"
-            Então devo receber uma mensagem de alerta "Todos os campos são Obrigatórios"
+            Exemplos:
 
-            | campo                 | valor           |
-            | Nome (*)              | José            |
-            | Sobrenome (*)         | Santos          |
-            | Nome da Empresa       |                 |
-            | País (*)              | Brasil          |
-            | Endereço (*)          |                 |
-            | Cidade (*)            |                 |
-            | CEP (*)               | 81260-240       |
-            | Telefone (*)          |                 |
-            | Endereço de Email (*) | joseexemplo.com |
-
+            | email                 | mensagem         |
+            | "joaoerradogmail.123" | "email inválido" |
